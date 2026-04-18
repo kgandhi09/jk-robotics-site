@@ -27,7 +27,7 @@ import {
  * - Added small runtime self-tests in development to catch route/config mismatches early.
  */
 
-type RouteKey = "home" | "services" | "about" | "projects" | "contact";
+type RouteKey = "home" | "services" | "about" | "contact";
 
 type NavItem = {
   key: RouteKey;
@@ -42,7 +42,7 @@ const NAV_ITEMS: NavItem[] = [
   { key: "home", label: "Home" },
   { key: "services", label: "Services" },
   { key: "about", label: "About" },
-  { key: "projects", label: "Projects" },
+  // { key: "projects", label: "Projects" },
   { key: "contact", label: "Contact" },
 ];
 
@@ -98,22 +98,22 @@ const ENGAGEMENT: string[] = [
   "R&D collaboration with industry partners",
 ];
 
-const PROJECTS: Array<{ title: string; text: string }> = [
-  {
-    title: "Industrial Mobile Robotics",
-    text: "Custom robotic platform engineering for manufacturers that need reliable hardware, controls, and deployment-ready system architecture.",
-  },
-  {
-    title: "Embedded Autonomy Stack",
-    text: "System software, middleware, telemetry, and perception pipelines designed for low-latency robotic operation in field conditions.",
-  },
-  {
-    title: "Prototype-to-Production Programs",
-    text: "Engineering partnerships that bridge proof-of-concept prototypes into scalable, supportable robotic products.",
-  },
-];
+// const PROJECTS: Array<{ title: string; text: string }> = [
+//   {
+//     title: "Industrial Mobile Robotics",
+//     text: "Custom robotic platform engineering for manufacturers that need reliable hardware, controls, and deployment-ready system architecture.",
+//   },
+//   {
+//     title: "Embedded Autonomy Stack",
+//     text: "System software, middleware, telemetry, and perception pipelines designed for low-latency robotic operation in field conditions.",
+//   },
+//   {
+//     title: "Prototype-to-Production Programs",
+//     text: "Engineering partnerships that bridge proof-of-concept prototypes into scalable, supportable robotic products.",
+//   },
+// ];
 
-const ROUTE_TESTS: RouteKey[] = ["home", "services", "about", "projects", "contact"];
+const ROUTE_TESTS: RouteKey[] = ["home", "services", "about", "contact"];
 
 function cn(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(" ");
@@ -355,30 +355,30 @@ function AboutPage() {
   );
 }
 
-function ProjectsPage() {
-  return (
-    <PageShell>
-      <SectionHeading
-        eyebrow="Projects"
-        title="Representative delivery themes"
-        text="This preview uses portfolio-aligned project categories as placeholders until detailed case studies, images, metrics, and customer outcomes are added."
-      />
-      <div className="mt-14 grid gap-6 lg:grid-cols-3">
-        {PROJECTS.map((project) => (
-          <Card key={project.title} className="rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-md">
-            <CardContent className="p-7">
-              <div className="mb-4 inline-flex rounded-2xl border border-white/10 bg-white/10 p-3 text-white">
-                <Workflow className="h-5 w-5" />
-              </div>
-              <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
-              <p className="mt-4 text-base leading-7 text-white/68">{project.text}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </PageShell>
-  );
-}
+// function ProjectsPage() {
+//   return (
+//     <PageShell>
+//       <SectionHeading
+//         eyebrow="Projects"
+//         title="Representative delivery themes"
+//         text="This preview uses portfolio-aligned project categories as placeholders until detailed case studies, images, metrics, and customer outcomes are added."
+//       />
+//       <div className="mt-14 grid gap-6 lg:grid-cols-3">
+//         {PROJECTS.map((project) => (
+//           <Card key={project.title} className="rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-md">
+//             <CardContent className="p-7">
+//               <div className="mb-4 inline-flex rounded-2xl border border-white/10 bg-white/10 p-3 text-white">
+//                 <Workflow className="h-5 w-5" />
+//               </div>
+//               <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
+//               <p className="mt-4 text-base leading-7 text-white/68">{project.text}</p>
+//             </CardContent>
+//           </Card>
+//         ))}
+//       </div>
+//     </PageShell>
+//   );
+// }
 
 function ContactPage() {
   return (
@@ -483,8 +483,8 @@ function RouteRenderer({ route, onNavigate }: { route: RouteKey; onNavigate: (ro
       return <ServicesPage />;
     case "about":
       return <AboutPage />;
-    case "projects":
-      return <ProjectsPage />;
+    // case "projects":
+    //   return <ProjectsPage />;
     case "contact":
       return <ContactPage />;
     default:
