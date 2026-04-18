@@ -156,16 +156,16 @@ function BackgroundGlow() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMouse({
-        x: e.clientX,
-        y: e.clientY,
-      });
-    };
+  const handleMouseMove = (e: MouseEvent) => {
+    setMouse({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  window.addEventListener("mousemove", handleMouseMove);
+  return () => window.removeEventListener("mousemove", handleMouseMove);
+}, []);
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden bg-[#020807]">
@@ -306,7 +306,7 @@ function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
                 <Cpu className="h-3.5 w-3.5" /> Production-ready robotic systems
               </div>
 
-              <h1 className="max-w-4xl text-4xl font-semibold leading-[0.95] tracking-tight text-white md:text-7xl lg:text-[5rem]">
+              <h1 className="max-w-4xl text-3xl font-semibold leading-[0.95] tracking-tight text-white md:text-xl lg:text-[5rem]">
                 Building complete robotic systems from silicon to autonomy.
               </h1>
 
