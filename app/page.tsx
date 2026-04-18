@@ -153,13 +153,54 @@ function Button({
 }
 
 function BackgroundGlow() {
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMouse({
+        x: e.clientX,
+        y: e.clientY,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.10),transparent_30%),linear-gradient(to_bottom,rgba(255,255,255,0.02),transparent_25%)]" />
-      <div className="absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:72px_72px]" />
-      <div className="absolute left-[-8rem] top-16 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-      <div className="absolute right-[-5rem] top-40 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
-      <div className="absolute bottom-[-6rem] left-1/3 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
+    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-[#020807]">
+
+      {/* PCB grid */}
+      <div
+        className="absolute inset-0 opacity-20
+        [background-image:
+          linear-gradient(rgba(0,80,40,0.2)_1px,transparent_1px),
+          linear-gradient(90deg,rgba(0,80,40,0.2)_1px,transparent_1px)
+        ]
+        [background-size:56px_56px]"
+      />
+
+      {/* 🟢 MOUSE FOLLOW GLOW */}
+      <div
+        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none"
+        style={{
+          left: mouse.x - 200,
+          top: mouse.y - 200,
+          background: "radial-gradient(circle, rgba(34,197,94,0.25) 0%, rgba(34,197,94,0.15) 30%, transparent 70%)",
+          filter: "blur(120px)",
+          transition: "left 0.08s linear, top 0.08s linear",
+        }}
+      />
+
+      {/* secondary ambient glow (optional depth) */}
+      <div className="absolute right-10 top-1/3 h-80 w-80 rounded-full bg-green-400/10 blur-[120px]" />
+
+      {/* scanlines */}
+      <div
+        className="absolute inset-0 opacity-5
+        [background-image:linear-gradient(to_bottom,transparent_95%,rgba(34,197,94,0.25)_100%)]
+        [background-size:100%_6px]"
+      />
     </div>
   );
 }
@@ -229,28 +270,57 @@ function PageShell({ children }: { children: React.ReactNode }) {
 }
 
 function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
+  const CAPABILITIES = [
+    [
+      "Hardware",
+      "Application-driven electronics engineered from first principles — semiconductor selection, power architecture, and custom embedded hardware designed for performance and reliability",
+    ],
+    [
+      "Software",
+      "Full-stack embedded systems development — from low-level firmware and kernel to high-performance application and interface layers, built specifically for the target system",
+    ],
+    [
+      "Autonomy",
+      "Autonomy systems tailored to mission requirements — perception, planning, and distributed control engineered to match the required level of intelligence and operational complexity",
+    ],
+    [
+      "Deployment",
+      "End-to-end system realization — from rapid prototyping to production-grade hardware and software, optimized for scalability, robustness, and real-world operation",
+    ],
+  ];
+
   return (
     <div>
       <section className="relative overflow-hidden border-b border-white/10">
         <BackgroundGlow />
+
         <PageShell>
-          <div className="relative z-10 grid min-h-[78vh] items-center gap-16 py-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <div className="relative z-10 grid min-h-[70vh] items-start gap-20 pt-6 pb-10 lg:grid-cols-[1.2fr_1.2fr]">
+            {/* LEFT */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-3 py-1.5 text-xs uppercase tracking-[0.24em] text-white/65">
                 <Cpu className="h-3.5 w-3.5" /> Production-ready robotic systems
               </div>
-              <h1 className="max-w-4xl text-5xl font-semibold leading-[0.95] tracking-tight text-white md:text-7xl lg:text-[5.5rem]">
+
+              <h1 className="max-w-4xl text-4xl font-semibold leading-[0.95] tracking-tight text-white md:text-7xl lg:text-[5rem]">
                 Building complete robotic systems from silicon to autonomy.
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-white/72 md:text-lg">
+
+              <p className="mt-6 max-w-xl text-base leading-8 text-white/72 md:text-lg">
                 J.K. Robotics Pvt. Ltd. partners with manufacturers, startups, and research organizations to design,
-                prototype, and deploy robust robotic platforms across hardware, embedded systems, operating systems,
+                prototype, and deploy robust robotic platforms across electronics hardware, embedded systems, operating systems,
                 middleware, and autonomous software.
               </p>
+
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <Button className="rounded-full px-6 py-3" onClick={() => onNavigate("contact")}>
                   Start a Project <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
+
                 <Button
                   variant="outline"
                   className="rounded-full px-6 py-3"
@@ -261,6 +331,7 @@ function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
               </div>
             </motion.div>
 
+            {/* RIGHT (WIDER CARD) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -268,48 +339,67 @@ function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
               className="relative"
             >
               <div className="absolute -inset-6 rounded-[36px] bg-white/10 blur-3xl" />
+
               <Card className="relative overflow-hidden rounded-[32px] border border-white/12 bg-white/8 shadow-2xl shadow-black/30 backdrop-blur-xl">
                 <CardContent className="p-6 md:p-8">
-                  <div className="mb-6 flex items-center justify-between">
+
+                  {/* HEADER */}
+                  <div className="mb-5 flex items-center justify-between">
                     <div>
-                      <div className="text-xs uppercase tracking-[0.25em] text-white/45">Company Overview</div>
-                      <div className="mt-1 text-2xl font-semibold text-white">Full-stack robotics engineering</div>
+                      <div className="text-xs uppercase tracking-[0.25em] text-white/45">
+                        Company Overview
+                      </div>
+                      <div className="mt-1 text-2xl font-semibold text-white">
+                        Full-stack robotics engineering
+                      </div>
                     </div>
+
                     <div className="rounded-2xl border border-white/10 bg-white/10 p-3">
-                      <Server className="h-6 w-6 text-white" />
+                      <Server className="h-8 w-8 text-white" />
                     </div>
                   </div>
 
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    {[
-                      ["Hardware", "Custom electronics, motor control, power systems"],
-                      ["Systems", "RTOS, embedded Linux, drivers, BSPs"],
-                      ["Autonomy", "Computer vision, navigation, distributed robotics"],
-                      ["Deployment", "Rapid prototyping to production transition"],
-                    ].map(([title, text]) => (
-                      <div key={title} className="rounded-3xl border border-white/10 bg-black/20 p-4">
-                        <div className="text-sm font-medium text-white">{title}</div>
-                        <div className="mt-2 text-sm leading-6 text-white/60">{text}</div>
+                  {/* CAPABILITIES (2 COL ONLY WHEN WIDE) */}
+                  <div className="grid gap-4 lg:grid-cols-2">
+                    {CAPABILITIES.map(([title, text]) => (
+                      <div
+                        key={title}
+                        className="rounded-3xl border border-white/10 bg-black/20 p-5"
+                      >
+                        <div className="text-sm font-semibold text-white tracking-wide">
+                          {title}
+                        </div>
+                        <div className="mt-2 text-sm leading-6 text-white/65">
+                          {text}
+                        </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-6 rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-5">
+                  {/* MISSION */}
+                  <div className="mt-5 rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-transparent p-5">
                     <div className="flex items-center gap-3">
                       <ShieldCheck className="h-5 w-5 text-white/80" />
-                      <div className="text-sm uppercase tracking-[0.22em] text-white/50">Mission</div>
+                      <div className="text-sm uppercase tracking-[0.22em] text-white/50">
+                        Mission
+                      </div>
                     </div>
+
                     <p className="mt-3 text-sm leading-7 text-white/72">
-                      To enable companies to rapidly build reliable, scalable, and production-grade robotic systems through deep engineering expertise across hardware and software domains.
+                      To enable companies to rapidly build reliable, scalable, and production-grade robotic systems
+                      through deep engineering expertise across hardware and software domains.
                     </p>
                   </div>
+
                 </CardContent>
               </Card>
             </motion.div>
+
           </div>
         </PageShell>
       </section>
 
+      {/* STATS */}
       <section className="mx-auto max-w-7xl px-6 py-16 md:px-8 lg:px-12">
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           <StatCard value="5+" label="Core Service Areas" />
@@ -322,113 +412,129 @@ function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
   );
 }
 
+
 function ServicesPage() {
   return (
-    <PageShell>
-      <SectionHeading
-        eyebrow="Core Services"
-        title="Engineering partnerships for ambitious robotic products"
-        text="From architecture and custom electronics to autonomy software and industrial deployment, the company supports complete robotic product realization."
-      />
-      <div className="mt-14 grid gap-6 md:grid-cols-2">
-        {SERVICES.map((service) => (
-          <ServiceCard key={service.title} {...service} />
-        ))}
+    <div className="relative min-h-screen overflow-hidden">
+
+      {/* 🌌 BACKGROUND (behind everything) */}
+      <BackgroundGlow />
+
+      {/* 🧱 FOREGROUND CONTENT */}
+      <div className="relative z-10">
+        <PageShell>
+          <SectionHeading
+            eyebrow="Core Services"
+            title="Engineering partnerships for ambitious robotic products"
+            text="From architecture and custom electronics to autonomy software and industrial deployment, the company supports complete robotic product realization."
+          />
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2">
+            {SERVICES.map((service) => (
+              <ServiceCard key={service.title} {...service} />
+            ))}
+          </div>
+        </PageShell>
       </div>
-    </PageShell>
+    </div>
   );
 }
 
 function AboutPage() {
   return (
-    <PageShell>
-      <SectionHeading
-        eyebrow="About"
-        title="A deep-tech robotics engineering partner"
-        text="J.K. Robotics Pvt. Ltd. is positioned as an engineering-focused robotics consulting firm specializing in end-to-end robotic system development for manufacturers, startups, and research organizations."
-      />
-      <div className="mt-14 grid gap-6 lg:grid-cols-2">
-        <ExpertiseColumn icon={Radar} title="Electronics Expertise" items={ELECTRONICS} />
-        <ExpertiseColumn icon={Cpu} title="Software & Systems Expertise" items={SOFTWARE} />
+    <div className="relative min-h-screen overflow-hidden">
+
+      {/* 🌌 BACKGROUND GLOW */}
+      <BackgroundGlow />
+
+      {/* 🧱 CONTENT */}
+      <div className="relative z-10">
+        <PageShell>
+          <SectionHeading
+            eyebrow="About"
+            title="A deep-tech robotics engineering partner"
+            text="J.K. Robotics Pvt. Ltd. is positioned as an engineering-focused robotics consulting firm specializing in end-to-end robotic system development for manufacturers, startups, and research organizations."
+          />
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-2">
+            <ExpertiseColumn icon={Radar} title="Electronics Expertise" items={ELECTRONICS} />
+            <ExpertiseColumn icon={Cpu} title="Software & Systems Expertise" items={SOFTWARE} />
+          </div>
+        </PageShell>
       </div>
-    </PageShell>
+    </div>
   );
 }
 
-// function ProjectsPage() {
-//   return (
-//     <PageShell>
-//       <SectionHeading
-//         eyebrow="Projects"
-//         title="Representative delivery themes"
-//         text="This preview uses portfolio-aligned project categories as placeholders until detailed case studies, images, metrics, and customer outcomes are added."
-//       />
-//       <div className="mt-14 grid gap-6 lg:grid-cols-3">
-//         {PROJECTS.map((project) => (
-//           <Card key={project.title} className="rounded-[28px] border border-white/10 bg-white/5 backdrop-blur-md">
-//             <CardContent className="p-7">
-//               <div className="mb-4 inline-flex rounded-2xl border border-white/10 bg-white/10 p-3 text-white">
-//                 <Workflow className="h-5 w-5" />
-//               </div>
-//               <h3 className="text-2xl font-semibold text-white">{project.title}</h3>
-//               <p className="mt-4 text-base leading-7 text-white/68">{project.text}</p>
-//             </CardContent>
-//           </Card>
-//         ))}
-//       </div>
-//     </PageShell>
-//   );
-// }
-
 function ContactPage() {
   return (
-    <PageShell>
-      <SectionHeading
-        eyebrow="Contact"
-        title="Ready to engineer your next robotic system?"
-        text="Ideal for startups, manufacturers, and research organizations seeking robotics architecture, electronics, embedded systems, autonomy, and production engineering support."
-      />
-      <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <Card className="rounded-[30px] border border-white/10 bg-white/5 backdrop-blur-md">
-          <CardContent className="p-8">
-            <div className="mb-6 flex items-center gap-3">
-              <div className="rounded-2xl border border-white/10 bg-white/10 p-3">
-                <Contact className="h-5 w-5 text-white" />
-              </div>
-              <h3 className="text-2xl font-semibold text-white">Direct Contact</h3>
-            </div>
-            <div className="space-y-3 text-white/75">
-              <p>info@jkrobotics.tech</p>
-              <p>+91 98259 83456</p>
-            </div>
-          </CardContent>
-        </Card>
+    <div className="relative min-h-screen overflow-hidden">
 
-        <Card className="rounded-[30px] border border-white/10 bg-gradient-to-br from-white/10 via-white/[0.03] to-transparent backdrop-blur-md">
-          <CardContent className="p-8">
-            <div className="text-xs uppercase tracking-[0.24em] text-white/45">Engagement Model</div>
-            <div className="mt-6 space-y-4">
-              {ENGAGEMENT.map((item) => (
-                <div key={item} className="rounded-2xl border border-white/8 bg-black/20 px-4 py-4 text-white/75">
-                  {item}
+      {/* 🌌 BACKGROUND GLOW */}
+      <BackgroundGlow />
+
+      {/* 🧱 CONTENT */}
+      <div className="relative z-10">
+        <PageShell>
+          <SectionHeading
+            eyebrow="Contact"
+            title="Ready to engineer your next robotic system?"
+            text="Ideal for startups, manufacturers, and research organizations seeking robotics architecture, electronics, embedded systems, autonomy, and production engineering support."
+          />
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <Card className="rounded-[30px] border border-white/10 bg-white/5 backdrop-blur-md">
+              <CardContent className="p-8">
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="rounded-2xl border border-white/10 bg-white/10 p-3">
+                    <Contact className="h-5 w-5 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white">Direct Contact</h3>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                <div className="space-y-3 text-white/75">
+                  <p>info@jkrobotics.tech</p>
+                  <p>+91 98259 83456</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="rounded-[30px] border border-white/10 bg-gradient-to-br from-white/10 via-white/[0.03] to-transparent backdrop-blur-md">
+              <CardContent className="p-8">
+                <div className="text-xs uppercase tracking-[0.24em] text-white/45">
+                  Engagement Model
+                </div>
+                <div className="mt-6 space-y-4">
+                  {ENGAGEMENT.map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-2xl border border-white/8 bg-black/20 px-4 py-4 text-white/75"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </PageShell>
       </div>
-    </PageShell>
+    </div>
   );
 }
 
 function Header({ route, onNavigate }: { route: RouteKey; onNavigate: (route: RouteKey) => void }) {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#06070a]/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-white/20 bg-[#06070a]/50 backdrop-blur-2xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-8 lg:px-12">
+
         <button onClick={() => onNavigate("home")} className="flex items-center gap-3 text-left">
           <div>
-            <div className="text-lg font-semibold uppercase tracking-[0.2em] text-white/90">J.K. Robotics</div>
-            <div className="text-xs text-white/50">Advanced Robotics Engineering</div>
+            <div className="text-xl font-bold uppercase tracking-[0.2em] text-white/90">
+              J.K. Robotics
+            </div>
+            <div className="text-sm font-semibold text-white/40">
+              Advanced Robotics Engineering
+            </div>
           </div>
         </button>
 
@@ -439,13 +545,16 @@ function Header({ route, onNavigate }: { route: RouteKey; onNavigate: (route: Ro
               onClick={() => onNavigate(item.key)}
               className={cn(
                 "rounded-full px-4 py-2 text-sm transition",
-                route === item.key ? "bg-white text-black" : "text-white/70 hover:bg-white/10 hover:text-white"
+                route === item.key
+                  ? "bg-white text-black"
+                  : "text-white/70 hover:bg-white/10 hover:text-white"
               )}
             >
               {item.label}
             </button>
           ))}
         </nav>
+
       </div>
     </header>
   );

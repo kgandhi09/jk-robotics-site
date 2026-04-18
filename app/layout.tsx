@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "JK Robotics",
+  title: "J.K. Robotics",
   icons: {
     icon: "/icon.png",
   },
