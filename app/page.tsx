@@ -295,25 +295,27 @@ function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
         <BackgroundGlow />
 
         <PageShell>
-          <div className="relative z-10 grid min-h-[70vh] items-start gap-20 pt-6 pb-10 lg:grid-cols-[1.2fr_1.2fr]">
+          <div className="relative z-10 grid min-h-[70vh] items-start gap-12 lg:gap-16 pt-6 pb-10 lg:grid-cols-2">
+
             {/* LEFT */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
+              className="max-w-2xl"
             >
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-3 py-1.5 text-xs uppercase tracking-[0.24em] text-white/65">
                 <Cpu className="h-3.5 w-3.5" /> Production-ready robotic systems
               </div>
 
-              <h1 className="max-w-4xl text-3xl font-semibold leading-[0.95] tracking-tight text-white md:text-xl lg:text-[5rem]">
+              <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight text-white md:text-6xl lg:text-[4.5rem]">
                 Building complete robotic systems from silicon to autonomy.
               </h1>
 
-              <p className="mt-6 max-w-xl text-base leading-8 text-white/72 md:text-lg">
+              <p className="mt-6 text-base leading-8 text-white/72 md:text-lg">
                 J.K. Robotics Pvt. Ltd. partners with manufacturers, startups, and research organizations to design,
-                prototype, and deploy robust robotic platforms across electronics hardware, embedded systems, operating systems,
-                middleware, and autonomous software.
+                prototype, and deploy robust robotic platforms across electronics hardware, embedded systems,
+                operating systems, middleware, and autonomous software.
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -331,7 +333,7 @@ function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
               </div>
             </motion.div>
 
-            {/* RIGHT (WIDER CARD) */}
+            {/* RIGHT */}
             <motion.div
               initial={{ opacity: 0, scale: 0.96, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -359,8 +361,8 @@ function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
                     </div>
                   </div>
 
-                  {/* CAPABILITIES (2 COL ONLY WHEN WIDE) */}
-                  <div className="grid gap-4 lg:grid-cols-2">
+                  {/* CAPABILITIES */}
+                  <div className="grid gap-4 md:grid-cols-2">
                     {CAPABILITIES.map(([title, text]) => (
                       <div
                         key={title}
@@ -411,7 +413,6 @@ function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
     </div>
   );
 }
-
 
 function ServicesPage() {
   return (
