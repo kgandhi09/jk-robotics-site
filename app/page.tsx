@@ -273,19 +273,19 @@ function HomePage({ onNavigate }: { onNavigate: (route: RouteKey) => void }) {
   const CAPABILITIES = [
     [
       "Hardware",
-      "Application-driven electronics engineered from first principles — semiconductor selection, power architecture, and custom embedded hardware designed for performance and reliability",
+      "Application-driven electronics engineered from first principles: semiconductor selection, power architecture, and custom embedded hardware designed for performance and reliability",
     ],
     [
       "Software",
-      "Full-stack embedded systems development — from low-level firmware and kernel to high-performance application and interface layers, built specifically for the target system",
+      "Full-stack embedded systems development: from low-level firmware and kernel to high-performance application and interface layers, built specifically for the target system",
     ],
     [
       "Autonomy",
-      "Autonomy systems tailored to mission requirements — perception, planning, and distributed control engineered to match the required level of intelligence and operational complexity",
+      "Autonomy systems tailored to mission requirements: perception, planning, and distributed control engineered to match the required level of intelligence and operational complexity",
     ],
     [
       "Deployment",
-      "End-to-end system realization — from rapid prototyping to production-grade hardware and software, optimized for scalability, robustness, and real-world operation",
+      "End-to-end system realization: from rapid prototyping to production-grade hardware and software, optimized for scalability, robustness, and real-world operation",
     ],
   ];
 
