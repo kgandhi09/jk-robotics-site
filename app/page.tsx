@@ -468,13 +468,18 @@ function AboutPage() {
 }
 
 function ContactPage() {
+  const email = "info@jkrobotics.tech";
+  const phone = "+919825983456"; // no spaces for links
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(email);
+    alert("Email copied to clipboard");
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden">
-
-      {/* 🌌 BACKGROUND GLOW */}
       <BackgroundGlow />
 
-      {/* 🧱 CONTENT */}
       <div className="relative z-10">
         <PageShell>
           <SectionHeading
@@ -484,26 +489,81 @@ function ContactPage() {
           />
 
           <div className="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+
+            {/* 🔹 CONTACT CARD */}
             <Card className="rounded-[30px] border border-white/10 bg-white/5 backdrop-blur-md">
               <CardContent className="p-8">
+
                 <div className="mb-6 flex items-center gap-3">
                   <div className="rounded-2xl border border-white/10 bg-white/10 p-3">
                     <Contact className="h-5 w-5 text-white" />
                   </div>
                   <h3 className="text-2xl font-semibold text-white">Direct Contact</h3>
                 </div>
-                <div className="space-y-3 text-white/75">
-                  <p>info@jkrobotics.tech</p>
-                  <p>+91 98259 83456</p>
+
+                <div className="space-y-4">
+
+                  {/* 📧 EMAIL */}
+                  <div className="group rounded-2xl border border-white/10 bg-black/20 p-4 transition hover:border-white/20 hover:bg-white/5">
+                    <div className="text-xs text-white/50 uppercase tracking-wider">Email</div>
+
+                    <div className="mt-2 flex items-center justify-between">
+                      <a
+                        href={`mailto:${email}`}
+                        className="text-white/80 group-hover:text-white transition"
+                      >
+                        {email}
+                      </a>
+
+                      <button
+                        onClick={handleCopyEmail}
+                        className="text-xs text-white/60 hover:text-white transition"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 📱 PHONE */}
+                  <div className="group rounded-2xl border border-white/10 bg-black/20 p-4 transition hover:border-white/20 hover:bg-white/5">
+                    <div className="text-xs text-white/50 uppercase tracking-wider">Phone</div>
+
+                    <div className="mt-2 text-white/80">{phone}</div>
+
+                    <div className="mt-3 flex gap-3">
+
+                      {/* Call */}
+                      <a
+                        href={`tel:${phone}`}
+                        className="rounded-full border border-white/10 px-4 py-1.5 text-xs text-white/70 hover:bg-white/10 hover:text-white transition"
+                      >
+                        Call
+                      </a>
+
+                      {/* WhatsApp */}
+                      <a
+                        href={`https://wa.me/${phone}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-full border border-green-400/30 px-4 py-1.5 text-xs text-green-300 hover:bg-green-400/10 transition"
+                      >
+                        WhatsApp
+                      </a>
+
+                    </div>
+                  </div>
+
                 </div>
               </CardContent>
             </Card>
 
+            {/* 🔹 ENGAGEMENT CARD (unchanged) */}
             <Card className="rounded-[30px] border border-white/10 bg-gradient-to-br from-white/10 via-white/[0.03] to-transparent backdrop-blur-md">
               <CardContent className="p-8">
                 <div className="text-xs uppercase tracking-[0.24em] text-white/45">
                   Engagement Model
                 </div>
+
                 <div className="mt-6 space-y-4">
                   {ENGAGEMENT.map((item) => (
                     <div
@@ -516,6 +576,7 @@ function ContactPage() {
                 </div>
               </CardContent>
             </Card>
+
           </div>
         </PageShell>
       </div>
