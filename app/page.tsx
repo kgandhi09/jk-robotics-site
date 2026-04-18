@@ -50,45 +50,45 @@ const SERVICES: Array<{ icon: IconType; title: string; text: string }> = [
   {
     icon: Layers3,
     title: "Robotics System Architecture",
-    text: "End-to-end engineering for robotic platforms, from concept definition to deployable system design.",
+    text: "Application-driven system architecture designed from first principles: defining and engineering the complete stack from custom electronics to system software, with all core components built from scratch as a tightly integrated robotic system.",
   },
   {
     icon: CircuitBoard,
     title: "Embedded Electronics & Custom Hardware",
-    text: "Custom PCB design, power systems, hardware bring-up, validation, and industrial-grade electronics development.",
+    text: "Ground-up electronics design aligned to system architecture: semiconductor selection, power electronics, motor control, and custom embedded hardware engineered from the silicon level to meet performance, reliability, and application-specific constraints.",
   },
   {
     icon: Bot,
-    title: "Autonomous Robotics Software",
-    text: "Middleware, navigation, distributed robotics architectures, computer vision, and system-level software for autonomous machines.",
+    title: "Robotics Software & Autonomy",
+    text: "Full-stack software built from the ground up : from low-level firmware, drivers, and operating systems to high-level autonomy, perception, and control, all tailored specifically to the application and underlying hardware.",
   },
   {
     icon: Wrench,
-    title: "Rapid Prototyping & Production",
-    text: "Fast iteration, engineering validation, and prototype-to-production transition support.",
+    title: "Prototyping & Production Systems",
+    text: "End-to-end realization of engineered systems: rapid prototyping, validation, and transition to robust, production-grade robotic platforms optimized for real-world deployment.",
   },
 ];
 
 const ELECTRONICS: string[] = [
-  "Custom PCB design from raw microprocessors and SoCs",
-  "Robotics electronics architecture and power systems",
-  "High-speed digital and mixed-signal circuit design",
-  "Motor control systems: BLDC, DC, Servo, Stepper",
-  "Sensor integration: IMU, LiDAR, Camera, GNSS, Radar",
-  "Embedded firmware and real-time systems",
-  "Hardware bring-up, validation, and debugging",
-  "EMI/EMC-conscious industrial electronics design",
+    "First-principles PCB design: microprocessor and SoC selection with application-specific circuit development",
+    "System-level electronics architecture: power systems, signal integrity, and hardware partitioning",
+  "High-speed digital and mixed-signal circuit design for performance-critical embedded systems",
+      "Motor drive electronics design: BLDC, DC, PMSM, servo, and stepper control systems",
+  "Low-level sensor interfacing: IMU, LiDAR, vision, GNSS, radar, etc. hardware integration",
+  "Embedded firmware and real-time control tightly coupled to custom hardware platforms",
+  "Hardware bring-up, debugging, and validation across prototype and production stages",
+  "EMI/EMC-aware industrial electronics design for reliable field deployment",
 ];
 
 const SOFTWARE: string[] = [
-  "Custom operating system development for robotics",
-  "Kernel-level software and driver development",
-  "Embedded Linux customization and BSP development",
-  "Real-time systems and low-latency communication",
-  "Robotics middleware and distributed architectures",
-  "Computer vision and autonomous navigation systems",
-  "Networking, telemetry, and secure communication",
-  "High-performance C/C++ and system-level programming",
+  "Developing system software from first principles: from low-level firmware and drivers to operating systems and application layers",
+  "Engineering kernel-level components and device drivers tailored to custom hardware platforms",
+  "Customizing embedded Linux and building board support packages (BSPs) for application-specific systems",
+  "Designing real-time and low-latency systems for deterministic control and communication",
+  "Developing distributed robotics architectures and system-level middleware for coordinated operation",
+  "Building perception, control, and autonomy software tailored to system requirements",
+  "Engineering communication stacks: networking, telemetry, and secure data exchange",
+  "Writing high-performance system software in C/C++ for efficiency, reliability, and control",
 ];
 
 const ENGAGEMENT: string[] = [
