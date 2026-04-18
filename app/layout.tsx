@@ -12,9 +12,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "J.K. Robotics",
-  description: "Advanced Robotics Engineering",
+export const metadata = {
+  title: "JK Robotics",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
